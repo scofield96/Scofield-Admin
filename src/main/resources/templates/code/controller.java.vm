@@ -1,0 +1,59 @@
+package ${package.Controller};
+
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+
+import com.scofield.frame.utils.PageUtils;
+import com.scofield.frame.utils.R;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.Map;
+
+/**
+ * <p>
+ *  ${table.entityPath}前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@RestController
+@RequestMapping("/${table.entityPath}")
+public class ${entity}Controller {
+
+    @Autowired
+    public ${table.serviceName} ${table.entityPath}Service;
+
+    @PostMapping("/list")
+    public R list(@RequestParam Map<String, Object> params) {
+        PageUtils page = ${table.entityPath}Service.queryByPage(params);
+        return R.success("success", page);
+    }
+
+    @PostMapping("/save")
+    public R save(@RequestBody ${entity} ${table.entityPath}) {
+            ${table.entityPath}Service.save(${table.entityPath});
+        return R.success("success");
+    }
+
+    @PostMapping("/updateById")
+    public R update(@RequestBody ${entity} ${table.entityPath}) {
+            ${table.entityPath}Service.updateById(${table.entityPath});
+        return R.success("success");
+    }
+
+    @PostMapping("/deleteById")
+    public R delete(@RequestBody ${entity} ${table.entityPath}) {
+            ${table.entityPath}Service.removeById(${table.entityPath});
+        return R.success("success");
+    }
+
+    @PostMapping("/deleteIds")
+    public R deleteIds(@RequestBody Long[] ids) {
+            ${table.entityPath}Service.removeByIds(Arrays.asList(ids));
+        return R.success("success");
+    }
+
+}
