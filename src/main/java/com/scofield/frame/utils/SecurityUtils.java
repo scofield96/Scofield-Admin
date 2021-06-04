@@ -9,11 +9,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  * @author Scofield
- * @description:  安全服务工具类
+ * @description: 安全服务工具类
  * @date: 2021/4/25
  * @email: 543196660@qq.com
  * @time: 14:09
  */
+
 public class SecurityUtils {
     /**
      * 获取用户账户
@@ -22,7 +23,7 @@ public class SecurityUtils {
         try {
             return getLoginUser().getUsername();
         } catch (Exception e) {
-            throw new BaseException( HttpStatus.UNAUTHORIZED,"获取用户账户异常");
+            throw new BaseException(HttpStatus.UNAUTHORIZED, "获取用户账户异常");
         }
     }
 
@@ -33,7 +34,7 @@ public class SecurityUtils {
         try {
             return (JwtUser) getAuthentication().getPrincipal();
         } catch (Exception e) {
-            throw new BaseException( HttpStatus.UNAUTHORIZED,"获取用户信息异常");
+            throw new BaseException(HttpStatus.UNAUTHORIZED, "获取用户信息异常");
         }
     }
 

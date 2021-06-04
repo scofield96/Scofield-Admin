@@ -18,7 +18,7 @@ import java.util.Map;
  * </p>
  *
  * @author Scofield
- * @since 2021-04-23
+ * @since 2021-04-26
  */
 @RestController
 @RequestMapping("/user")
@@ -27,7 +27,7 @@ public class UserController {
     @Autowired
     public UserService userService;
 
-    @Log("获取用户列表")
+    @Log("查询用户列表")
     @PostMapping("/list")
     public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = userService.queryByPage(params);

@@ -34,7 +34,7 @@ public class CodeGenerator {
     private static String password = "root";//数据库密码
 
     public static void main(String[] args) {
-        String[] nameList = new String[]{"sys_log"};
+        String[] nameList = new String[]{"sys_user"};
         for (int i = 0; i < nameList.length; i++) {
             codeGenerator(nameList[i]);
         }
@@ -82,6 +82,9 @@ public class CodeGenerator {
 
         // 设置创建时间和更新时间自动填充策略
         ArrayList<TableFill> tableFills = new ArrayList<>();
+        tableFills.add(new TableFill("create_by", FieldFill.INSERT));
+        tableFills.add(new TableFill("update_by", FieldFill.INSERT_UPDATE));
+        tableFills.add(new TableFill("status", FieldFill.INSERT));
         tableFills.add(new TableFill("create_time", FieldFill.INSERT));
         tableFills.add(new TableFill("update_time", FieldFill.INSERT_UPDATE));
         /** 此处可以修改为您的表前缀，如果没有，注释掉即可*/

@@ -12,18 +12,18 @@ public enum UserStatus {
     OK("0", "正常"), DISABLE("1", "该账户已停用"), DELETED("2", "该账户已删除");
 
     private final String code;
-    private final String info;
+    private final String value;
 
-    UserStatus(String code, String info) {
+    UserStatus(String code, String value) {
         this.code = code;
-        this.info = info;
+        this.value = value;
     }
 
     public String getCode() {
         return code;
     }
 
-    public String getInfo() {
-        return info;
+    public String getValue() {
+        return value;
     }
 }

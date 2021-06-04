@@ -14,7 +14,7 @@ import java.util.Date;
  * </p>
  *
  * @author Scofield
- * @since 2021-04-23
+ * @since 2021-04-26
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -43,6 +43,7 @@ public class User implements Serializable {
     /**
      * 密码
      */
+    @TableField(fill = FieldFill.INSERT)
     private String password;
 
     /**
@@ -56,8 +57,14 @@ public class User implements Serializable {
     private Date loginDate;
 
     /**
+     * 登陆地点
+     */
+    private String loginAddress;
+
+    /**
      * 创建者
      */
+    @TableField(fill = FieldFill.INSERT)
     private String createBy;
 
     /**
@@ -69,6 +76,7 @@ public class User implements Serializable {
     /**
      * 更新者
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private String updateBy;
 
     /**
@@ -80,6 +88,7 @@ public class User implements Serializable {
     /**
      * 帐号状态（0正常 1停用）
      */
+    @TableField(fill = FieldFill.INSERT)
     private String status;
 
     /**

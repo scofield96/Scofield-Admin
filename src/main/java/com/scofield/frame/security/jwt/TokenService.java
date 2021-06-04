@@ -3,6 +3,8 @@ package com.scofield.frame.security.jwt;
 import com.scofield.frame.constant.Constants;
 import com.scofield.frame.utils.AddressUtils;
 import com.scofield.frame.utils.RedisUtils;
+import com.scofield.frame.utils.uuid.IdUtils;
+import com.scofield.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -14,7 +16,6 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -37,12 +38,13 @@ public class TokenService {
     // 令牌有效期（默认30分钟）
     @Value("${token.expireTime}")
     private int expireTime;
-
-    protected static final long MILLIS_SECOND = 1000;  //1s
+    @Autowired
+    UserService userService;
+    protected static final long MILLIS_SECOND = 1000L;  //1s
 
     protected static final long MILLIS_MINUTE = 60 * MILLIS_SECOND; //1m
 
-    private static final Long MILLIS_MINUTE_TEN = 20 * 60 * 1000L; // 2m
+    private static final Long MILLIS_MINUTE_TEN = 20 * 60 * 1000L; // 20m
 
     @Autowired
     RedisUtils redisUtils;
@@ -75,7 +77,7 @@ public class TokenService {
      * @return 令牌
      */
     public String createToken(JwtUser jwtUser) {
-        String token = UUID.randomUUID().toString().replace("-", "");
+        String token = IdUtils.fastUUID();
         jwtUser.setToken(token);
         setUserAgent(jwtUser); //代理信息
         refreshToken(jwtUser); //刷新令牌
@@ -97,6 +99,7 @@ public class TokenService {
             refreshToken(jwtUser);
         }
     }
+
     /**
      * 从数据声明生成令牌
      *
@@ -142,7 +145,6 @@ public class TokenService {
     }
 
     private void refreshToken(JwtUser jwtUser) {
-
         jwtUser.setLoginTime(System.currentTimeMillis());
         jwtUser.setExpireTime(jwtUser.getLoginTime() + expireTime * MILLIS_MINUTE);
         //根据uuid将jwtUser缓存

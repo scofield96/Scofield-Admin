@@ -11,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,14 +41,11 @@ public class LoginController {
             authentication = authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(loginVo.getUsername(), loginVo.getPassword()));
         } catch (Exception e) {
-            if (e instanceof UsernameNotFoundException){
-             //   return R.error("登录失败,您输入的账号不存在或已经被删除！");
-            }
             if (e instanceof BadCredentialsException) {
                 //账号密码匹配不上
-                return R.error(HttpStatus.UNAUTHORIZED,"账户未授权,请检查账号密码");
+                return R.error(HttpStatus.UNAUTHORIZED, "认证失败,请检查账号密码");
             } else {
-                return R.error(UserStatus.DISABLE.getInfo());
+                return R.error(UserStatus.DISABLE.getValue());
             }
         }
         JwtUser jwtUser = (JwtUser) authentication.getPrincipal();

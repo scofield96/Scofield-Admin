@@ -25,6 +25,23 @@ import org.springframework.web.filter.CorsFilter;
 /**
  * @author Scofield
  * @description:
+ *
+ *
+ * LogoutFilter  - 登出过滤器
+ * logoutSuccessHandler - 登出成功之后的操作类
+ * UsernamePasswordAuthenticationFilter  - from提交用户名密码登录认证过滤器
+ * AuthenticationFailureHandler  - 登录失败操作类
+ * AuthenticationSuccessHandler  - 登录成功操作类
+ * BasicAuthenticationFilter - Basic身份认证过滤器
+ * SecurityContextHolder - 安全上下文静态工具类
+ * AuthenticationEntryPoint - 认证失败入口
+ * ExceptionTranslationFilter - 异常处理过滤器
+ * AccessDeniedHandler - 权限不足操作类
+ * FilterSecurityInterceptor - 权限判断拦截器、出口
+ *
+ *
+ *
+ *
  * @date: 2021/4/22
  * @email: 543196660@qq.com
  * @time: 16:55
